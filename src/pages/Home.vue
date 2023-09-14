@@ -31,9 +31,9 @@ onMounted(() => {
 <template>
     <div class="container">
     <div class="photos-list">
-      <div class="photo" v-for="(photo, index) in photos" :key="photo.id">
+      <router-link class="photo" v-for="(photo, index) in photos" :key="photo.id" :to="{ name: 'PhotoDetail', params: { id: photo.id } }">
         <img :src="photo.urls.small" :alt="photo.alt_description">
-      </div>
+      </router-link>
     </div>
   </div>
 </template>

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../pages/Home.vue';
-import Favorites from '../pages/Favorites.vue'; // Импортируйте новую страницу
+import Home from '@/pages/Home.vue';
+import Favorites from '@/pages/Favorites.vue'; 
+import PhotoDetail from '@/pages/PhotoDetail.vue'
 
 const routes = [
   {
@@ -11,7 +12,12 @@ const routes = [
   {
     path: '/favorites',
     name: 'Favorites',
-    component: Favorites, // Добавьте маршрут для страницы "favorites"
+    component: Favorites, 
+  },
+  {
+    path: '/photo/:id',
+    name: 'PhotoDetail',
+    component: PhotoDetail,
   },
 ];
 
