@@ -4,8 +4,5 @@ import AppHeader from '@/components/modules/header.vue'
 
 <template>
   <AppHeader />
+  <router-view></router-view>  
 </template>
-
-<style scoped>
-
-</style>
