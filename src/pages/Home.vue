@@ -1,9 +1,10 @@
 <script setup>
 
 import { ref, onMounted } from 'vue'; // Импортируем ref и onMounted
+import PhotoList from '@/components/PhotoList.vue'
 
-const ApiKey = 'mlwN4BpfAUNKQdXZDOxu0f0R_4TC8iV6dzj8yIC6zA0';
-const baseURL = 'https://api.unsplash.com/';
+const ApiKey = import.meta.env.VITE_API_KEY;
+const baseURL = import.meta.env.VITE_API_URL;
 
 // Реактивная переменная для хранения загруженных фотографий
 const photos = ref([]);
@@ -13,13 +14,13 @@ const searchTerm = ref('');
 const fetchPhotos = async () => {
   try {
     const response = await fetch(`${baseURL}/photos?client_id=${ApiKey}&orientation=squarish&per_page=9`);
-    console.log(import.meta.env.VITE_SOME_KEY)
+    // console.log(import.meta.env.VITE_SOME_KEY)
     if (!response.ok) {
       throw new Error('Ошибка загрузки фотографий');
     }
     const data = await response.json();
     photos.value = data; // Присваиваем полученные данные переменной photos
-    console.log(photos.value.id)
+    // console.log(photos.value.id)
   } catch (error) {
     console.error('Ошибка при загрузке фотографий:', error);
   }
@@ -53,20 +54,20 @@ onMounted(() => {
       <div class="container">
         <div class="search-input">
           <input v-model="searchTerm" placeholder="Поиск..." type="text" />
-        <button @click="performSearch">
-        <img src="@/assets/icons/search.svg" alt="search icon"></button>
+          <button @click="performSearch">
+            <img src="@/assets/icons/search.svg" alt="search icon"></button>
         </div>
       </div>
     </div>
 
-    <div class="container">
-      <div class="photos-list">
-        <router-link class="photo" v-for="photo in photos" :key="photo.id"
+    <PhotoList>
+      <router-link class="photo" v-for="photo in photos" :key="photo.id"
           :to="{ name: 'PhotoDetail', params: { id: photo.id } }">
           <img :src="photo.urls.small" :alt="photo.alt_description">
         </router-link>
-      </div>
-    </div>
+    </PhotoList>
+        
+ 
   </main>
 </template>
 
@@ -78,12 +79,14 @@ onMounted(() => {
   background-size: cover;
   background-position: center center;
   padding: 80px 22px;
-    // Large devices (desktops, 992px and up)
-@media (min-width: 992px) { 
-  padding: 90px 22px;
-   
+
+  // Large devices (desktops, 992px and up)
+  @media (min-width: 992px) {
+    padding: 90px 22px;
+
   }
 }
+
 .search-input {
   position: relative;
   display: flex;
@@ -93,7 +96,7 @@ onMounted(() => {
   input[type="text"] {
     height: 70px;
     width: 100%;
-   
+
     background-color: #fff;
     padding: 0 25px;
     border: none;
@@ -107,10 +110,12 @@ onMounted(() => {
     font-style: normal;
     font-weight: 300;
     line-height: normal;
+
     &:focus {
       outline: none;
     }
   }
+
   button {
     background-color: transparent;
     border: none;
@@ -120,52 +125,26 @@ onMounted(() => {
     right: 25px;
     top: calc(50% - 12px);
     width: 24px;
+
     img {
-        width: 100%;
+      width: 100%;
     }
   }
 }
 
-  .photos-list {
-    padding: 45px 20px 43px;
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
-    gap: 16px;
 
-    // Small devices (landscape phones, 576px and up)
-    @media (min-width: 576px) {
-      // padding: 107px 0 71px;
-      
-      
-      grid-template-rows: auto ;
-    }
 
-    // Medium devices (tablets, 768px and up)
-@media (min-width: 768px) { 
-  grid-template-columns: auto auto ;
-    grid-template-rows: auto;
- }
-    // Large devices (desktops, 992px and up)
-@media (min-width: 992px) { 
-  gap: 30px;
-  grid-template-columns: repeat(3, 1fr);
-  padding: 107px 20px 71px; }
-   
+.photo {
+  img {
+    width: 100%;
+    height: 312px;
+    object-fit: cover;
+    border-radius: 8px;
   }
 
-  .photo {
+  @media (min-width: 576px) {
     img {
-      width: 100%;
-      height: 312px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-
-    @media (min-width: 576px) {
-      img {
-        height: 440px;
-      }
+      height: 440px;
     }
   }
-</style>
+}</style>

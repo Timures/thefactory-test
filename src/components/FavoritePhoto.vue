@@ -1,9 +1,8 @@
-
-
 <script setup>
 import { ref, onMounted, defineProps } from 'vue';
-const ApiKey = 'mlwN4BpfAUNKQdXZDOxu0f0R_4TC8iV6dzj8yIC6zA0';
-const baseURL = 'https://api.unsplash.com/';
+
+const ApiKey = import.meta.env.VITE_API_KEY;
+const baseURL = import.meta.env.VITE_API_URL;
 
 
 const props = defineProps({
@@ -35,8 +34,28 @@ onMounted(() => {
 <template>
   <div class="container">
     <div v-if="imageUrl">
-      <h2>{{ imageId }}</h2>
-      <img :src="imageUrl.urls.small" :alt="imageUrl.alt_description" />
+      <router-link class="photo" target="_self"
+          :to="{ name: 'PhotoDetail', params: { id: props.imageId } }">
+          <img :src="imageUrl.urls.small" :alt="imageUrl.alt_description" />
+        </router-link>
+      
     </div>
   </div>
 </template>
+
+<style lang="scss">
+.photo {
+  img {
+    width: 100%;
+    height: 312px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  @media (min-width: 576px) {
+    img {
+      height: 440px;
+    }
+  }
+}
+</style>

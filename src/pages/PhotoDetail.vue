@@ -3,8 +3,8 @@ import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router'; // Импортируем useRoute
 import { useFavoritesStore } from '@/store/index.js';
 
-const ApiKey = 'mlwN4BpfAUNKQdXZDOxu0f0R_4TC8iV6dzj8yIC6zA0';
-const baseURL = 'https://api.unsplash.com/';
+const ApiKey = import.meta.env.VITE_API_KEY;
+const baseURL = import.meta.env.VITE_API_URL;
 
 // Получение ID фотографии из параметров маршрута с помощью useRoute
 const route = useRoute();
@@ -40,7 +40,7 @@ const fetchPhotoByID = async () => {
         const data = await response.json();
         photo.value = data; // Присваиваем полученные данные переменной photos
 
-        console.log(photo)
+        // console.log(photo)
     } catch (error) {
         console.error('Ошибка при загрузке фотографии:', error);
     }
