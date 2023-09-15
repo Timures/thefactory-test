@@ -13,6 +13,7 @@ const searchTerm = ref('');
 const fetchPhotos = async () => {
   try {
     const response = await fetch(`${baseURL}/photos?client_id=${ApiKey}&orientation=squarish&per_page=9`);
+    console.log(import.meta.env.VITE_SOME_KEY)
     if (!response.ok) {
       throw new Error('Ошибка загрузки фотографий');
     }

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router'; // Импортируем useRoute
 import { useFavoritesStore } from '@/store/index.js';
 
