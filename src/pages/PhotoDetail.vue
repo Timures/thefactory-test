@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute } from 'vue-router'; // Импортируем useRoute
+import { useFavoritesStore } from '@/store/index.js';
 
 const ApiKey = 'mlwN4BpfAUNKQdXZDOxu0f0R_4TC8iV6dzj8yIC6zA0';
 const baseURL = 'https://api.unsplash.com/';
@@ -45,6 +46,12 @@ const fetchPhotoByID = async () => {
     }
 };
 
+/*** FAVORITES */
+const favoritesStore = useFavoritesStore();
+const addToFavorites = (id) => {
+    favoritesStore.addToFavorites(id);
+};
+
 onMounted(() => {
     fetchPhotoByID();
     // Добавляем обработчик события на документ
@@ -71,7 +78,7 @@ onMounted(() => {
                         </div>
                     </div>
                     <div class="photo-actions">
-                        <button>
+                        <button @click="addToFavorites(photo.id)">
                             <img class="icon-heart" src="@/assets/icons/heart.svg" alt="">
                         </button>
 
@@ -150,6 +157,17 @@ onMounted(() => {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media (min-width: 576px) {
+        padding: 0 20px;
+    }
+
+    // X-Large devices (large desktops, 1200px and up)
+   // XX-Large devices (larger desktops, 1400px and up)
+   @media (min-width: 1441px) {
+    padding: 0;
+    }
+
 }
 
 .user {
@@ -330,6 +348,7 @@ onMounted(() => {
 }
 
 .normal-screen-container {
+    margin: 0 auto;
     //   cursor: pointer;
     max-width: 100%;
     max-height: 100%;
@@ -347,7 +366,14 @@ onMounted(() => {
     }
 
     @media (min-width: 576px) {
+        max-width: 90%;
+        max-height: 90%;
         box-shadow: 0px 4px 50px 0px rgba(0, 0, 0, 0.50);
+    }
+
+    // XX-Large devices (larger desktops, 1400px and up)
+    @media (min-width: 1441px) {
+        max-width: 100%;
     }
 }
 
