@@ -1,14 +1,10 @@
-<script setup>
-
-</script>
-
 <template>
-    <div class="container">
-      <div class="photos-list">
-        <slot></slot>
-      </div>
+  <div class="container">
+    <div class="photos-list">
+      <slot></slot>
     </div>
-  </template>
+  </div>
+</template>
   
 <style lang="scss">
 .photos-list {
@@ -21,9 +17,6 @@
 
   // Small devices (landscape phones, 576px and up)
   @media (min-width: 576px) {
-    // padding: 107px 0 71px;
-
-
     grid-template-rows: auto;
   }
 

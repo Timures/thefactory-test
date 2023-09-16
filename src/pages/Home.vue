@@ -1,6 +1,6 @@
 <script setup>
 
-import { ref, onMounted } from 'vue'; // Импортируем ref и onMounted
+import { ref, onMounted } from 'vue'; 
 
 import PhotoList from '@/components/PhotoList.vue'
 import Loader from '@/components/Loader.vue'
@@ -9,16 +9,16 @@ import ScrollToTop from '@/components/ScrollToTop.vue'
 const ApiKey = import.meta.env.VITE_API_KEY;
 const baseURL = import.meta.env.VITE_API_URL;
 
-// Реактивная переменная для хранения загруженных фотографий
+
 const photos = ref([]);
 const searchTerm = ref('');
 
 // подгрузка
-const loading = ref(false); // Флаг загрузки
-const currentPage = ref(1); // Текущая страница
-const itemsPerPage = 9; // Количество элементов на странице
+const loading = ref(false); 
+const currentPage = ref(1); 
+const itemsPerPage = 9; 
 
-// Метод для загрузки фотографий с использованием fetch
+// Метод для загрузки фотографий
 const fetchPhotos = async () => {
   try {
     const response = await fetch(`${baseURL}/photos?client_id=${ApiKey}&orientation=squarish&per_page=9`);
@@ -57,14 +57,14 @@ const loadNextPage = async () => {
 
 const performSearch = async () => {
   try {
-    const response = await fetch(`${baseURL}search/photos?client_id=${ApiKey}&query=${searchTerm.value}&orientation=squarish&per_page=9`);
+    const response = await fetch(`${baseURL}/search/photos?client_id=${ApiKey}&query=${searchTerm.value}&orientation=squarish&per_page=9`);
     console.log('Выполняем поиск с запросом:', searchTerm.value);
     if (!response.ok) {
       throw new Error('Ошибка загрузки фотографий');
     }
     const data = await response.json();
-    photos.value = data.results; // Присваиваем полученные данные переменной photos
-    // console.log(photos.value.id)
+    photos.value = data.results; 
+    
   } catch (error) {
     console.error('Ошибка при загрузке фотографий:', error);
   }
@@ -74,13 +74,13 @@ const performSearch = async () => {
 // Вызываем метод fetchPhotos при открытии страницы
 onMounted(() => {
   fetchPhotos();
-  // Добавляем обработчик события scroll
+ 
   window.addEventListener('scroll', () => {
     const scrollHeight = document.documentElement.scrollHeight;
-    const scrollTop = window.scrollY; // Заменяем pageYOffset на scrollY
+    const scrollTop = window.scrollY; 
     const clientHeight = document.documentElement.clientHeight;
     
-    // Проверяем, достиг ли скролл конца страницы (и добавьте дополнительный порог по желанию)
+    
     if (scrollHeight - scrollTop <= clientHeight + 100) {
       loadNextPage();
     }
@@ -107,11 +107,9 @@ onMounted(() => {
         </router-link>
     </PhotoList>
 
-    <!-- Отображение loader'а, пока идет загрузка -->
     <Loader :isLoading="loading.value" />
 
-    <ScrollToTop />
-        
+    <ScrollToTop />        
  
   </main>
 </template>
@@ -162,6 +160,7 @@ onMounted(() => {
   }
 
   button {
+    cursor: pointer;
     background-color: transparent;
     border: none;
     box-shadow: none;

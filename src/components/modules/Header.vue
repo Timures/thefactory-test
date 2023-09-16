@@ -1,18 +1,16 @@
 <script setup>
 
-import { computed,ref, onMounted } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = ref(null);
-// Определение, находится ли пользователь на главной странице
+
 const isHomePage = computed(() => {
-  if (!route.value) return false; // Проверка, что route уже доступен
-  // Проверяем, является ли текущий путь главной страницей ('/')
-  return route.value.path === '/';
+    if (!route.value) return false;
+    return route.value.path === '/';
 });
 onMounted(() => {
- // Проверяем, является ли текущий путь главной страницей ('/')
- route.value = useRoute();
+    route.value = useRoute();
 })
 </script>
 
@@ -48,7 +46,6 @@ onMounted(() => {
   
   
 <style lang="scss" scoped>
-/* Стили для компонента заголовка (header) */
 .app-header {
     display: flex;
     align-items: center;
@@ -80,7 +77,6 @@ onMounted(() => {
     width: 84px;
     height: 33px;
 
-    /* Укажите желаемую ширину логотипа */
     @media (min-width: 576px) {
         width: 185px;
         height: 73px;

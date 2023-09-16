@@ -9,7 +9,6 @@
   
   const showButton = ref(false);
   
-  // Функция для прокрутки страницы вверх
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -17,9 +16,8 @@
     });
   };
   
-  // Обработчик события scroll для отображения/скрытия кнопки
   const handleScroll = () => {
-    showButton.value = window.scrollY > 300; // Измените значение, чтобы кнопка появлялась при определенной прокрутке
+    showButton.value = window.scrollY > 300;
   };
   
   onMounted(() => {

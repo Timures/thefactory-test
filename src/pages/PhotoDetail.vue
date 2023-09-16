@@ -1,16 +1,15 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router'; // Импортируем useRoute
+import { useRoute } from 'vue-router'; 
 import { useFavoritesStore } from '@/store/index.js';
 
 const ApiKey = import.meta.env.VITE_API_KEY;
 const baseURL = import.meta.env.VITE_API_URL;
 
-// Получение ID фотографии из параметров маршрута с помощью useRoute
+// Получение ID фотографии и
 const route = useRoute();
 const photoId = ref(route.params.id);
 
-// Метод загрузки фото по ID
 const photo = ref(null);
 
 const isFullScreen = ref(false);
@@ -24,7 +23,6 @@ const closeFullScreen = () => {
 };
 
 const closeFullScreenOutside = (event) => {
-    // Проверяем, был ли клик вне изображения
     if (event.target.classList.contains('full-screen-container')) {
         closeFullScreen();
     }
@@ -52,14 +50,12 @@ const addToFavorites = (id) => {
     favoritesStore.addToFavorites(id);
 };
 
-// Геттер для проверки, находится ли изображение в избранном
 const isFavorite = computed(() => {
   return favoritesStore.isImageInFavorites(photoId.value);
 });
 
 onMounted(() => {
     fetchPhotoByID();
-    // Добавляем обработчик события на документ
 });
 
 </script>
@@ -96,15 +92,12 @@ onMounted(() => {
                 <div class="photo-image">
                     <transition name="fade" mode="out-in">
                         <div :key="isFullScreen">
-                            <!-- Если не в полноэкранным режиме, отображаем изображение -->
                             <div v-if="!isFullScreen" class="normal-screen-container">
                                 <img :src="photo.urls.small" :alt="photo.alt_description" />
-                                <!-- Кнопка для перехода в полноэкранный режим -->
                                 <button class="fullscreen-button" @click="openFullScreen">
                                     <img src="@/assets/icons/fullscreen.svg" alt="fullscreen icon">
                                 </button>
                             </div>
-                            <!-- Если в полноэкранным режиме, отображаем только изображение -->
                             <div v-else>
                                 <div class="full-screen-container" @click="closeFullScreenOutside">
                                     <div class="full-screen-image">
@@ -242,11 +235,9 @@ onMounted(() => {
 
 .photo-image {
     margin-top: 32px;
-
     @media (min-width: 576px) {
         margin-top: 40px;
     }
-
 }
 
 .photo-actions {
@@ -364,7 +355,6 @@ onMounted(() => {
     //   cursor: pointer;
     max-width: 100%;
     max-height: 100%;
-    /* Добавьте другие стили, если необходимо */
     position: relative;
     border-radius: 8px;
     background: lightgray 50% / cover no-repeat, linear-gradient(0deg, rgba(40, 36, 22, 0.08) 0%, rgba(40, 36, 22, 0.08) 100%), url(<path-to-image>), lightgray 50% / cover no-repeat, url(<path-to-image>), lightgray 50% / cover no-repeat, #FFF;
@@ -407,5 +397,4 @@ onMounted(() => {
     cursor: pointer;
     max-width: 100%;
     max-height: 100%;
-    /* Добавьте другие стили, если необходимо */
 }</style>

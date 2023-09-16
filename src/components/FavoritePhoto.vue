@@ -28,12 +28,11 @@ const fetchPhotoByID = async () => {
 /** FAVORITES REMOVE */
 const favoritesStore = useFavoritesStore();
 const removeFromFavorites = (id) => {
-    favoritesStore.removeFromFavorites(id);
+  favoritesStore.removeFromFavorites(id);
 };
 
 onMounted(() => {
   fetchPhotoByID();
-  // Добавляем обработчик события на документ
 });
 
 </script>
@@ -41,12 +40,10 @@ onMounted(() => {
 <template>
   <div class="container">
     <div v-if="imageUrl" class="favorite-photo">
-      <router-link class="photo" target="_self"
-          :to="{ name: 'PhotoDetail', params: { id: props.imageId } }">
-          <img :src="imageUrl.urls.small" :alt="imageUrl.alt_description" />
-          
-        </router-link>
-        <button class="favorite-photo-btn" @click="removeFromFavorites(props.imageId)">x</button>
+      <router-link class="photo" target="_self" :to="{ name: 'PhotoDetail', params: { id: props.imageId } }">
+        <img :src="imageUrl.urls.small" :alt="imageUrl.alt_description" />
+      </router-link>
+      <button class="favorite-photo-btn" @click="removeFromFavorites(props.imageId)">x</button>
     </div>
   </div>
 </template>
@@ -54,6 +51,7 @@ onMounted(() => {
 <style lang="scss">
 .favorite-photo {
   position: relative;
+
   &-btn {
     position: absolute;
     bottom: 12px;
@@ -61,5 +59,4 @@ onMounted(() => {
     z-index: 1;
   }
 }
-
 </style>
