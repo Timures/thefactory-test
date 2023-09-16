@@ -1,7 +1,50 @@
-# Vue 3 + Vite
+# Поиск изображений с использованием API Unsplash 
+## Это демо версия - в час не более 50 обращений к сервису Unsplash
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Данный проект представляет собой простой интерфейс для поиска изображений с использованием API Unsplash.
 
-## Recommended IDE Setup
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Данное тестовое задание демонстрирует навыки работы с Vue 3, Vite, Pinia, а также разработку интерфейса для работы с внешним API.
+
+В приложении реализованы следующие страницы и функциональность:
+
+1. **Главная страница**: Здесь отображаются 9 случайных изображений. При скролле подгружаются фотографии дальше. Также добавлена кнопка Наверх, которая появляется при скролле. 
+
+2. **Страница поиска**: Вы можете ввести ключевое слово для поиска изображений. После ввода ключевого слова, отображается результат поиска с соответствующими изображениями.
+
+3. **Просмотр фотографии**: При клике на изображение из результата поиска вы переходите на страницу с подробной информацией о фотографии. При клике на соответствующуж кнопку можно просмотреть фото в более высоком качестве
+
+4. **Избранное**: Вы можете добавить любое изображение в избранное для последующего просмотра. Также изображение можно удалить из Избранного
+
+## Пример работы
+Пример работы с приложением можно найти по ссылке https://thefactory-test.vercel.app/.
+
+
+## Дизайн
+https://www.figma.com/file/kQrW4MbsrkbRGYrpNnndSB/The-Factory.-Frontend-task?type=design&node-id=0-1&mode=design
+
+## Технологии
+
+- Vue 3
+- Vite 4.4.5
+- Pinia 2.1.6
+- Sass
+- vue-router
+
+## Запуск проекта
+
+1. Установите зависимости:
+
+   ```bash
+   npm install
+
+2. Запустите проект:
+    ```bash
+   npm run dev
+
+3. Откройте браузер и перейдите по адресу http://localhost:3000 если порт не свободен, то откроется на другом порту.
+
+## Деплой
+Проект развернут на платформе Vercel
+
+
