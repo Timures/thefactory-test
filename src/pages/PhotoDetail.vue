@@ -6,7 +6,7 @@ import { useFavoritesStore } from '@/store/index.js';
 const ApiKey = import.meta.env.VITE_API_KEY;
 const baseURL = import.meta.env.VITE_API_URL;
 
-// Получение ID фотографии и
+// Получение ID фотографии 
 const route = useRoute();
 const photoId = ref(route.params.id);
 
@@ -31,14 +31,13 @@ const closeFullScreenOutside = (event) => {
 
 const fetchPhotoByID = async () => {
     try {
-        const response = await fetch(`${baseURL}/photos/${photoId.value}?client_id=${ApiKey}`); // Замените URL на ваш
+        const response = await fetch(`${baseURL}/photos/${photoId.value}?client_id=${ApiKey}`);
         if (!response.ok) {
             throw new Error('Ошибка загрузки фотографий');
         }
         const data = await response.json();
-        photo.value = data; // Присваиваем полученные данные переменной photos
+        photo.value = data; 
 
-        // console.log(photo)
     } catch (error) {
         console.error('Ошибка при загрузке фотографии:', error);
     }
@@ -83,7 +82,7 @@ onMounted(() => {
                             <img class="icon-heart" src="@/assets/icons/heart.svg" alt="">
                         </button>
 
-                        <a :href="photo.links.download_location" download>
+                        <a :href="photo.links.download" download target="_blank">
                             <img class="icon-download" src="@/assets/icons/download.svg" alt="">
                             <span>Download</span>
                         </a>
