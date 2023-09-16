@@ -1,0 +1,14 @@
+.photo {
+  img {
+    width: 100%;
+    height: 312px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  @media (min-width: 576px) {
+    img {
+      height: 440px;
+    }
+  }
+}

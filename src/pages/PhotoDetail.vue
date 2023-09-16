@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router'; // Импортируем useRoute
 import { useFavoritesStore } from '@/store/index.js';
 
@@ -52,6 +52,11 @@ const addToFavorites = (id) => {
     favoritesStore.addToFavorites(id);
 };
 
+// Геттер для проверки, находится ли изображение в избранном
+const isFavorite = computed(() => {
+  return favoritesStore.isImageInFavorites(photoId.value);
+});
+
 onMounted(() => {
     fetchPhotoByID();
     // Добавляем обработчик события на документ
@@ -78,11 +83,11 @@ onMounted(() => {
                         </div>
                     </div>
                     <div class="photo-actions">
-                        <button @click="addToFavorites(photo.id)">
+                        <button @click="addToFavorites(photo.id)" :disabled="isFavorite">
                             <img class="icon-heart" src="@/assets/icons/heart.svg" alt="">
                         </button>
 
-                        <a :href="photo.links.download" download>
+                        <a :href="photo.links.download_location" download>
                             <img class="icon-download" src="@/assets/icons/download.svg" alt="">
                             <span>Download</span>
                         </a>
@@ -290,6 +295,13 @@ onMounted(() => {
         }
     }
 
+    button {
+        &:disabled {
+            background: #bdbdbd;
+            cursor:not-allowed;
+        }
+    }
+
     a {
         border: none;
         background: #FFF200;
@@ -366,8 +378,8 @@ onMounted(() => {
     }
 
     @media (min-width: 576px) {
-        max-width: 90%;
-        max-height: 90%;
+        max-width: 97%;
+        max-height: 97%;
         box-shadow: 0px 4px 50px 0px rgba(0, 0, 0, 0.50);
     }
 

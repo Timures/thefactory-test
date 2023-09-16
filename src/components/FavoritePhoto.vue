@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, defineProps } from 'vue';
+import { useFavoritesStore } from '@/store/index.js';
 
 const ApiKey = import.meta.env.VITE_API_KEY;
 const baseURL = import.meta.env.VITE_API_URL;
@@ -24,6 +25,12 @@ const fetchPhotoByID = async () => {
   }
 };
 
+/** FAVORITES REMOVE */
+const favoritesStore = useFavoritesStore();
+const removeFromFavorites = (id) => {
+    favoritesStore.removeFromFavorites(id);
+};
+
 onMounted(() => {
   fetchPhotoByID();
   // Добавляем обработчик события на документ
@@ -33,29 +40,26 @@ onMounted(() => {
 
 <template>
   <div class="container">
-    <div v-if="imageUrl">
+    <div v-if="imageUrl" class="favorite-photo">
       <router-link class="photo" target="_self"
           :to="{ name: 'PhotoDetail', params: { id: props.imageId } }">
           <img :src="imageUrl.urls.small" :alt="imageUrl.alt_description" />
+          
         </router-link>
-      
+        <button class="favorite-photo-btn" @click="removeFromFavorites(props.imageId)">x</button>
     </div>
   </div>
 </template>
 
 <style lang="scss">
-.photo {
-  img {
-    width: 100%;
-    height: 312px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-
-  @media (min-width: 576px) {
-    img {
-      height: 440px;
-    }
+.favorite-photo {
+  position: relative;
+  &-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    z-index: 1;
   }
 }
+
 </style>

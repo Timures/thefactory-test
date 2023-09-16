@@ -17,6 +17,7 @@
   grid-template-columns: auto;
   grid-template-rows: auto;
   gap: 16px;
+  filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.10));
 
   // Small devices (landscape phones, 576px and up)
   @media (min-width: 576px) {

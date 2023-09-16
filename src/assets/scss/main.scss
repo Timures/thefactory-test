@@ -1,4 +1,7 @@
-@import './reset';
-@import './typhography';
-@import './variables';
-@import './base';
+@import './abstract/reset';
+@import './abstract/typhography';
+@import './abstract/variables';
+@import './abstract/base';
+
+/** Components */
+@import './components/photo'

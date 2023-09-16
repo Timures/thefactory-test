@@ -3,6 +3,8 @@
 import { ref, onMounted } from 'vue'; // Импортируем ref и onMounted
 
 import PhotoList from '@/components/PhotoList.vue'
+import Loader from '@/components/Loader.vue'
+import ScrollToTop from '@/components/ScrollToTop.vue'
 
 const ApiKey = import.meta.env.VITE_API_KEY;
 const baseURL = import.meta.env.VITE_API_URL;
@@ -106,7 +108,9 @@ onMounted(() => {
     </PhotoList>
 
     <!-- Отображение loader'а, пока идет загрузка -->
-    <div v-if="loading" class="loader">Loading...</div>
+    <Loader :isLoading="loading.value" />
+
+    <ScrollToTop />
         
  
   </main>
@@ -172,20 +176,4 @@ onMounted(() => {
     }
   }
 }
-
-
-
-.photo {
-  img {
-    width: 100%;
-    height: 312px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-
-  @media (min-width: 576px) {
-    img {
-      height: 440px;
-    }
-  }
-}</style>
+</style>

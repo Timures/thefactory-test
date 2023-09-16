@@ -1,27 +1,51 @@
+<script setup>
+
+import { computed,ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = ref(null);
+// Определение, находится ли пользователь на главной странице
+const isHomePage = computed(() => {
+  if (!route.value) return false; // Проверка, что route уже доступен
+  // Проверяем, является ли текущий путь главной страницей ('/')
+  return route.value.path === '/';
+});
+onMounted(() => {
+ // Проверяем, является ли текущий путь главной страницей ('/')
+ route.value = useRoute();
+})
+</script>
+
 <template>
     <header class="app-header">
         <div class="container">
-            <div class="app-header__content">
+            <nav class="app-header__content">
                 <router-link to="/" class="link logo-link">
                     <img src="@/assets/icons/logo.svg" alt="Логотип" class="app-logo" />
                 </router-link>
-
-                <router-link to="/favorites" class="link app-link">
-                    <img src="@/assets/icons/heart.svg" alt="Логотип" class="app-link" />
-                    <span>
-                        Избранное
-                    </span>
-                </router-link>
-            </div>
+                <ul class="app-header__nav">
+                    <li v-show="!isHomePage">
+                        <router-link to="/" class="link search-link ">
+                            <img src="@/assets/icons/search.svg" alt="Поиск" class="app-link" />
+                            <span>
+                                Поиск
+                            </span>
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link to="/favorites" class="link app-link">
+                            <img src="@/assets/icons/heart.svg" alt="Логотип" class="app-link" />
+                            <span>
+                                Избранное
+                            </span>
+                        </router-link>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </header>
 </template>
   
-<script>
-export default {
-    name: 'AppHeader',
-};
-</script>
   
 <style lang="scss" scoped>
 /* Стили для компонента заголовка (header) */
@@ -41,6 +65,11 @@ export default {
         justify-content: space-between;
         align-items: center;
     }
+
+    &__nav {
+        display: flex;
+        column-gap: 22px;
+    }
 }
 
 .link {
@@ -58,7 +87,14 @@ export default {
     }
 }
 
-.app-link {
+.search-link {
+    img {
+        filter: invert(100%);
+    }
+}
+
+.app-link,
+.search-link {
     color: white;
     text-decoration: none;
     font-size: 18px;
